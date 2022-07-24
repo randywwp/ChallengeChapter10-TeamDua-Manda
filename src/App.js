@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Navigate } from "react-router-dom";
+import {
+  Dashboard,
+  Register,
+  Login,
+  UpdateProfile,
+  ResetPassword,
+  Rps,
+} from "./components";
+import { Auth } from "./context/Auth";
+import { auth } from "./services/firebase";
 
-function App() {
+export default function App() {
+  function PrivateRoute({ children, redirectTo }) {
+    return auth.currentUser ? children : <Navigate to={redirectTo} />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Auth>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute redirectTo="/login">
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/update-profile"
+            element={
+              <PrivateRoute redirectTo="/login">
+                <UpdateProfile />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route
+            path="/rpsgame"
+            element={
+              <PrivateRoute redirectTo="/login">
+                <Rps />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </Auth>
+    </>
   );
 }
-
-export default App;
