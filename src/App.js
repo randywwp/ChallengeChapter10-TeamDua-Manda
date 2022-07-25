@@ -1,11 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import {
+  Home,
   Dashboard,
   Register,
   Login,
   UpdateProfile,
   ResetPassword,
   Rps,
+  Profile
 } from "./components";
 import { Auth } from "./context/Auth";
 import { auth } from "./services/firebase";
@@ -22,13 +24,17 @@ export default function App() {
           <Route
             path="/"
             element={
-              <PrivateRoute redirectTo="/login">
+              <PrivateRoute redirectTo="/landingpage">
                 <Dashboard />
               </PrivateRoute>
             }
           />
+          <Route path="/landingpage" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+
+
           <Route
             path="/update-profile"
             element={

@@ -9,3 +9,4 @@ export { Nav } from "./Nav";
 export { Rps } from "./Rps";
 export { Tables } from "./Tables";
 export { Handler } from "./Handler";
+export { Home } from "./LandingPage";

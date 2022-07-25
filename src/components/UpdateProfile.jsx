@@ -15,7 +15,7 @@ export const UpdateProfile = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { updateName, updateMail, currentUser } = useAuth();
+  const { updateName, updateMail, currentUser, gantiPassword } = useAuth();
 
   const navigate = useNavigate();
 
@@ -45,6 +45,10 @@ export const UpdateProfile = () => {
 
     if (user.email !== currentUser.email) {
       promises.push(updateMail(user.email));
+    }
+
+    if (user.password !== currentUser.password) {
+      promises.push(gantiPassword(user.password));
     }
 
     Promise.all(promises)
@@ -124,7 +128,7 @@ export const UpdateProfile = () => {
                 />
               </Form.Group>
               <div className="text-center pt-2 d-grid">
-                <Button variant="primary" type="submit" disabled={loading}>
+                <Button variant="primary" type="submit" >
                   Update
                 </Button>
               </div>
