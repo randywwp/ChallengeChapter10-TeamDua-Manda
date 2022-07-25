@@ -5,6 +5,7 @@ import {
   updateProfile,
   updateEmail,
   sendPasswordResetEmail,
+  updatePassword,
   signOut,
 } from "firebase/auth";
 import { auth } from "../services/firebase";
@@ -47,6 +48,10 @@ export const Auth = ({ children }) => {
     return sendPasswordResetEmail(auth, email);
   }
 
+  function gantiPassword(password) {
+    return updatePassword(currentUser, password);
+  }
+
   function logout() {
     return signOut(auth);
   }
@@ -71,6 +76,7 @@ export const Auth = ({ children }) => {
     updatePhoto,
     updateMail,
     resetPassword,
+    gantiPassword,
     logout,
   };
 
