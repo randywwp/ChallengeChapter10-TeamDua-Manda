@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/Auth";
-import { signInWithGoogle } from '../services/firebase'
+
 
 
 export const Register = () => {
@@ -95,11 +95,6 @@ export const Register = () => {
                 />
               </Form.Group>
               <div className="text-center pt-2 d-grid">
-            <Form.Group>
-              <Button onClick={signInWithGoogle} variant="secondary">
-                Sign In With Google
-              </Button>
-            </Form.Group>
               </div>
               <div className="text-center pt-2 d-grid">
                 <Button variant="primary" type="submit" disabled={loading}>
