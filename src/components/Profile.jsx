@@ -1,7 +1,7 @@
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { useState } from "react";
 import { Modal, Button, Alert, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useAuth } from "../context/Auth";
 import { storage } from "../services/firebase";
 
@@ -144,8 +144,8 @@ export const Profile = () => {
             </p>
 
             <div className="text-center pt-4 d-grid">
-              <Link to="/update-profile" className="btn btn-primary">
-                Update Profile
+              <Link href="/update-profile">
+                <Button variant="primary">Update Profile</Button>
               </Link>
             </div>
           </div>

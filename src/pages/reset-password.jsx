@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Form, Button, Container, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useAuth } from "../context/Auth";
 
-export const ResetPassword = () => {
+export default function ResetPassword() {
   const [user, setUser] = useState({
     email: "",
   });
@@ -71,13 +71,13 @@ export const ResetPassword = () => {
               </div>
               <div className="text-center pt-4">
                 Need an account?
-                <Link to="/register" className="link">
+                <Link href="/register" className="link">
                   Register
                 </Link>
               </div>
               <div className="text-center pt-3">
                 Already have an account?
-                <Link to="/login" className="link">
+                <Link href="/login" className="link">
                   Login
                 </Link>
               </div>
@@ -87,4 +87,4 @@ export const ResetPassword = () => {
       </Container>
     </>
   );
-};
+}

@@ -1,7 +1,3 @@
-import batu from "../assets/batu.png";
-import gunting from "../assets/gunting.png";
-import kertas from "../assets/kertas.png";
-import refresh from "../assets/refresh.png";
 import { useState, useEffect } from "react";
 import { db } from "../services/firebase";
 import {
@@ -131,7 +127,7 @@ export const Handler = () => {
           <h3>PLAYER</h3>
           <br />
           <img
-            src={batu}
+            src="/batu.png"
             alt=""
             width="100"
             className="hand-animate"
@@ -141,7 +137,7 @@ export const Handler = () => {
           <br />
           <br />
           <img
-            src={gunting}
+            src="/gunting.png"
             alt=""
             width="100"
             className="hand-animate"
@@ -151,7 +147,7 @@ export const Handler = () => {
           <br />
           <br />
           <img
-            src={kertas}
+            src="/kertas.png"
             alt=""
             width="100"
             className="hand-animate"
@@ -162,7 +158,7 @@ export const Handler = () => {
         <div className="col pt-5">
           <h1 style={{ paddingTop: 130 }}>{result}</h1>
           <img
-            src={refresh}
+            src="/refresh.png"
             alt=""
             width="85"
             style={{ paddingTop: 60, paddingLeft: 20 }}
@@ -172,15 +168,15 @@ export const Handler = () => {
         <div className="col">
           <h3 className="ps-3">COM</h3>
           <br />
-          <img src={batu} alt="" width="100" />
+          <img src="/batu.png" alt="" width="100" />
           <br />
           <br />
           <br />
-          <img src={gunting} alt="" width="100" />
+          <img src="/gunting.png" alt="" width="100" />
           <br />
           <br />
           <br />
-          <img src={kertas} alt="" width="100" />
+          <img src="/kertas.png" alt="" width="100" />
         </div>
       </div>
       <Tables leaderboards={leaderboards} />

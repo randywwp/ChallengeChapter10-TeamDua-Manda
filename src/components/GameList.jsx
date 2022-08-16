@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
-import rps from "../assets/rps.png";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import Link from "next/link";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export const GameList = () => {
   return (
@@ -16,13 +15,13 @@ export const GameList = () => {
                 placement="left-start"
                 overlay={<Tooltip>Rock Paper Scissors!</Tooltip>}
               >
-                <img src={rps} alt="" width="200" />
+                <img src="/rps.png" alt="" width="200" />
               </OverlayTrigger>
             </div>
 
             <div className="pt-3 d-grid">
-              <Link to="/rpsgame" className="btn btn-primary">
-                PLAY GAME
+              <Link href="/rps">
+                <Button variant="primary">PLAY GAME</Button>
               </Link>
             </div>
           </div>

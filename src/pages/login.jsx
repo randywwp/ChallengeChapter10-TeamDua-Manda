@@ -1,22 +1,21 @@
 import { useState } from "react";
-import { Form, Button, Container } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Form, Button, Container, Alert } from "react-bootstrap";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useAuth } from "../context/Auth";
+import { signInWithGoogle } from "../services/firebase";
 
-
-
-export const Register = () => {
+export default function Login() {
   const [user, setUser] = useState({
     email: "",
     password: "",
-    confirmationPassword: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { register } = useAuth();
+  const { login } = useAuth();
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   function handleSetUser(event) {
     const { name, value } = event.target;
@@ -29,21 +28,13 @@ export const Register = () => {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (user.password !== user.confirmationPassword) {
-      return setError("Password do not match");
-    }
-
     try {
       setError("");
       setLoading(true);
-      await register(user.email, user.password);
-      navigate("/");
+      await login(user.email, user.password);
+      router.push("/dashboard");
     } catch {
-      if (user.password.valueOf.length < 6) {
-        setError("Password must 6 character");
-      } else {
-        setError("Failed to register!");
-      }
+      setError("Failed to login or wrong password");
     }
 
     setLoading(false);
@@ -51,19 +42,22 @@ export const Register = () => {
 
   return (
     <>
-      <Container className="mt-5">
+      <Container className="border border-dark mt-5">
         <div
           className="row justify-content-center align-items-center"
           style={{ height: 700 }}
         >
           <div className="col-4">
-            <Form onSubmit={handleSubmit} className="p-5">
+            <Form
+              onSubmit={handleSubmit}
+              className="border border-dark rounded-3 p-5"
+            >
               <div className="text-center pb-3">
-                <h3>Register</h3>
+                <h3>Login</h3>
               </div>
-
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email</Form.Label>
+                {error && <Alert variant="danger"> {error} </Alert>}
+                <Form.Label>Email Address</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -83,28 +77,27 @@ export const Register = () => {
                   onChange={handleSetUser}
                 />
               </Form.Group>
-
-              <Form.Group className="mb-3">
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  name="confirmationPassword"
-                  value={user.confirmationPassword}
-                  onChange={handleSetUser}
-                />
+              <Form.Group>
+                <div className="text-center pt-2 d-grid">
+                  <Button onClick={signInWithGoogle} variant="secondary">
+                    Sign In With Google
+                  </Button>
+                </div>
               </Form.Group>
-              <div className="text-center pt-2 d-grid">
-              </div>
               <div className="text-center pt-2 d-grid">
                 <Button variant="primary" type="submit" disabled={loading}>
                   Submit
                 </Button>
               </div>
               <div className="text-center pt-3">
-                Already have an account?{" "}
-                <Link to="/login" className="link">
-                  Login
+                <Link href="/reset-password" className="link">
+                  Forgot Password?
+                </Link>
+              </div>
+              <div className="text-center pt-3">
+                Need an account?{" "}
+                <Link href="/register" className="link">
+                  Register
                 </Link>
               </div>
             </Form>
@@ -113,4 +106,4 @@ export const Register = () => {
       </Container>
     </>
   );
-};
+}

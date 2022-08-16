@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
-import { Nav, Handler } from "./";
+import { Nav, Handler } from "../components";
 
-export const Rps = () => {
+export default function Rps() {
   return (
     <>
       <Container className="mt-5">
@@ -15,4 +15,4 @@ export const Rps = () => {
       </Container>
     </>
   );
-};
+}

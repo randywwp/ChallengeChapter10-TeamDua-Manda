@@ -16,7 +16,7 @@ export const Tables = ({ leaderboards }) => {
               </tr>
             </thead>
             {leaderboards.map((data, index) => (
-              <tbody>
+              <tbody key={data.name}>
                 <tr>
                   <td> {index + 1} </td>
                   <td> {data.name} </td>

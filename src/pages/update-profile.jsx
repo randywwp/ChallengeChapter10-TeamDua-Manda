@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Form, Button, Container, Alert } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useAuth } from "../context/Auth";
 
-export const UpdateProfile = () => {
+export default function UpdateProfile() {
   const [user, setUser] = useState({
     photoURL: "",
     displayName: "",
@@ -17,7 +18,7 @@ export const UpdateProfile = () => {
 
   const { updateName, updateMail, currentUser, gantiPassword } = useAuth();
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   function handleSetUser(event) {
     const { name, value } = event.target;
@@ -53,7 +54,7 @@ export const UpdateProfile = () => {
 
     Promise.all(promises)
       .then(() => {
-        navigate("/");
+        router.push("/dashboard");
       })
       .catch(() => {
         setError("Failed to update account");
@@ -128,12 +129,12 @@ export const UpdateProfile = () => {
                 />
               </Form.Group>
               <div className="text-center pt-2 d-grid">
-                <Button variant="primary" type="submit" >
+                <Button variant="primary" type="submit">
                   Update
                 </Button>
               </div>
               <div className="text-center pt-3">
-                <Link to="/" className="link">
+                <Link href="/dashboard" className="link">
                   Cancel
                 </Link>
               </div>
@@ -143,4 +144,4 @@ export const UpdateProfile = () => {
       </Container>
     </>
   );
-};
+}

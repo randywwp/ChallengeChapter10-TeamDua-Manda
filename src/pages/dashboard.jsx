@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
-import { Profile, GameList, Nav } from "./";
+import { Profile, GameList, Nav } from "../components";
 
-export const Dashboard = () => {
+export default function Dashboard() {
   return (
     <>
       <Container className="mt-5">
@@ -17,4 +17,4 @@ export const Dashboard = () => {
       </Container>
     </>
   );
-};
+}
