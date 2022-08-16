@@ -10,6 +10,13 @@ export const GameList = () => {
             <div className="text-center pb-4">
               <h3>Game List</h3>
             </div>
+            <div>
+              <ul>
+                <li>
+                  ROCK PAPER SCISSOR
+                </li>
+              </ul>
+            </div>
             <div className="text-center" style={{ paddingBottom: 23 }}>
               <OverlayTrigger
                 placement="left-start"
