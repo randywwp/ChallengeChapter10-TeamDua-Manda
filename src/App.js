@@ -1,3 +1,4 @@
+import { Provider } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import {
   Home,
@@ -11,6 +12,7 @@ import {
 } from "./components";
 import { Auth } from "./context/Auth";
 import { auth } from "./services/firebase";
+import { store } from "./redux/store"
 
 export default function App() {
   function PrivateRoute({ children, redirectTo }) {
@@ -19,6 +21,7 @@ export default function App() {
 
   return (
     <>
+    <Provider store={store}>
       <Auth>
         <Routes>
           <Route
@@ -54,6 +57,7 @@ export default function App() {
           />
         </Routes>
       </Auth>
+      </Provider>
     </>
   );
 }
