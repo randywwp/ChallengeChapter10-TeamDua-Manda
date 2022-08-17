@@ -50,19 +50,41 @@ export default function Register() {
 
   return (
     <>
-      <Container className="mt-5">
+      <Container
+        className="mt-5"
+        style={{
+          background: "#0FC1A1",
+          borderRadius: "30px",
+        }}
+      >
         <div
           className="row justify-content-center align-items-center"
           style={{ height: 700 }}
         >
           <div className="col-4">
-            <Form onSubmit={handleSubmit} className="p-5">
+            <Form
+              onSubmit={handleSubmit}
+              className="p-5"
+              style={{
+                background: "#CBFFCE",
+                borderRadius: "10px",
+              }}
+            >
               <div className="text-center pb-3">
-                <h3>Register</h3>
+                <h3
+                  style={{
+                    fontFamily: "arial",
+                    fontSize: "50px",
+                  }}
+                >
+                  <b>Register</b>
+                </h3>
               </div>
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>
+                  <b>Email</b>
+                </Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -73,7 +95,9 @@ export default function Register() {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>
+                  <b>Password</b>
+                </Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Password"
@@ -84,7 +108,9 @@ export default function Register() {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Confirm Password</Form.Label>
+                <Form.Label>
+                  <b>Confirm Password</b>
+                </Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Password"
