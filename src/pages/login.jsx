@@ -42,22 +42,40 @@ export default function Login() {
 
   return (
     <>
-      <Container className="border border-dark mt-5">
+      <Container
+        className="border border-dark mt-5"
+        style={{
+          background: "#10316B",
+          borderRadius: "30px"
+        }}
+      >
         <div
           className="row justify-content-center align-items-center"
           style={{ height: 700 }}
         >
           <div className="col-4">
             <Form
+              style={{
+                background: "#FDBE34",
+              }}
               onSubmit={handleSubmit}
               className="border border-dark rounded-3 p-5"
             >
               <div className="text-center pb-3">
-                <h3>Login</h3>
+                <h3
+                  style={{
+                    fontFamily: "arial",
+                    fontSize: "50px",
+                    
+                  }}
+                ><b>
+                  Login
+                  </b>
+                </h3>
               </div>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 {error && <Alert variant="danger"> {error} </Alert>}
-                <Form.Label>Email Address</Form.Label>
+                <Form.Label><b>Email Address</b></Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -68,7 +86,7 @@ export default function Login() {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
+                <Form.Label><b>Password</b></Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Password"
