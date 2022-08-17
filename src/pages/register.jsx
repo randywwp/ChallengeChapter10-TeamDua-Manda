@@ -23,7 +23,7 @@ export default function Register() {
 
     useEffect(() => {
         if(currentUser) {
-            router.push("/dashboard")
+            router.push("/")
         }
     }, [currentUser, router])
 
