@@ -1,9 +1,10 @@
 import { Button, Container } from "react-bootstrap";
 import Link from "next/link";
-import { useAuth } from "../context/Auth";
+import { logoutInitiate } from "../redux/action";
+// import { useAuth } from "../context/Auth";
 
 export const Nav = () => {
-  const { logout } = useAuth();
+  const { logout } = logoutInitiate();
 
   return (
     <>

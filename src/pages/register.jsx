@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/Auth";
+import { useDispatch, useSelector } from "react-redux";
+import { registerInitiate } from "../redux/action";
 
 export default function Register() {
   const [user, setUser] = useState({
@@ -13,9 +15,19 @@ export default function Register() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { register } = useAuth();
+  // const { register } = useAuth();
 
   const router = useRouter();
+
+  const { currentUser } = useSelector((state) => state.user)
+
+    useEffect(() => {
+        if(currentUser) {
+            router.push("/")
+        }
+    }, [currentUser, router])
+
+    const dispatch = useDispatch()
 
   function handleSetUser(event) {
     const { name, value } = event.target;
@@ -35,8 +47,8 @@ export default function Register() {
     try {
       setError("");
       setLoading(true);
-      await register(user.email, user.password);
-      router.push("/dashboard");
+      await dispatch(registerInitiate(user.email, user.password));
+      navigate("/dashboard", { replace: true })
     } catch {
       if (user.password.valueOf.length < 6) {
         setError("Password must 6 character");
