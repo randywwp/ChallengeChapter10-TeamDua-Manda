@@ -87,3 +87,12 @@ export const loginInitiate = (email, password) => {
             .catch((error) => dispatch(loginFail(error.message)))  
     }
 }
+
+export const logoutInitiate = () => {
+    return function (dispatch) {
+        dispatch(logoutStart()) 
+        signOut(auth)
+            .then((resp) => dispatch(logoutSuccess()))
+            .catch((error) => dispatch(logoutFail(error.message)))
+    }
+}
