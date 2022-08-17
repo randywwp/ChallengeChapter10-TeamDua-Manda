@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux"
 import { Form, Button, Container, Alert } from "react-bootstrap";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/Auth";
 import { signInWithGoogle } from "../services/firebase";
+import { useEffect } from "react";
+import { loginInitiate } from "../redux/action";
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -13,9 +16,20 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
+  // const { login } = useAuth();
 
   const router = useRouter();
+
+  const { currentUser } = useSelector((state) => state.user)
+
+
+  useEffect(() => {
+    if(currentUser) {
+      router.push("/dashboard")
+    }
+  }, [currentUser, router])
+
+  const dispatch = useDispatch()
 
   function handleSetUser(event) {
     const { name, value } = event.target;
@@ -31,8 +45,8 @@ export default function Login() {
     try {
       setError("");
       setLoading(true);
-      await login(user.email, user.password);
-      router.push("/dashboard");
+      await dispatch(loginInitiate(user.email, user.password));
+      navigate("/dashboard", { replace: true });
     } catch {
       setError("Failed to login or wrong password");
     }
