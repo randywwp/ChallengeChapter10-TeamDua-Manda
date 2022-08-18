@@ -14,6 +14,7 @@ export default function UpdateProfile() {
   });
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { updateName, updateMail, currentUser, gantiPassword } = useAuth();
@@ -33,6 +34,7 @@ export default function UpdateProfile() {
 
     setSuccess("");
     setError("");
+    setMessage("");
     setLoading(true);
 
     if (user.password !== user.confirmationPassword) {
@@ -54,7 +56,10 @@ export default function UpdateProfile() {
 
     Promise.all(promises)
       .then(() => {
-        router.push("/dashboard");
+        setMessage("Processing...");
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 3000);
       })
       .catch(() => {
         setError("Failed to update account");
@@ -130,7 +135,7 @@ export default function UpdateProfile() {
               </Form.Group>
               <div className="text-center pt-2 d-grid">
                 <Button variant="primary" type="submit">
-                  Update
+                  {message === "" ? "Update" : message}
                 </Button>
               </div>
               <div className="text-center pt-3">

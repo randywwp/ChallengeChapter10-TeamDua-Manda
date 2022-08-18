@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useAuth } from "../context/Auth";
 import { useDispatch, useSelector } from "react-redux";
 import { registerInitiate } from "../redux/action";
 
@@ -13,21 +12,20 @@ export default function Register() {
     confirmationPassword: "",
   });
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // const { register } = useAuth();
 
   const router = useRouter();
 
-  const { currentUser } = useSelector((state) => state.user)
+  const { currentUser } = useSelector((state) => state.user);
 
-    useEffect(() => {
-        if(currentUser) {
-            router.push("/")
-        }
-    }, [currentUser, router])
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/");
+    }
+  }, [currentUser, router]);
 
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   function handleSetUser(event) {
     const { name, value } = event.target;
@@ -46,9 +44,13 @@ export default function Register() {
 
     try {
       setError("");
+      setMessage("");
       setLoading(true);
       await dispatch(registerInitiate(user.email, user.password));
-      navigate("/dashboard", { replace: true })
+      setMessage("Processing...");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 3000);
     } catch {
       if (user.password.valueOf.length < 6) {
         setError("Password must 6 character");
@@ -134,7 +136,7 @@ export default function Register() {
               <div className="text-center pt-2 d-grid"></div>
               <div className="text-center pt-2 d-grid">
                 <Button variant="primary" type="submit" disabled={loading}>
-                  Submit
+                  {message === "" ? "Submit" : message}
                 </Button>
               </div>
               <div className="text-center pt-3">

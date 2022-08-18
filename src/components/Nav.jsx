@@ -1,7 +1,6 @@
 import { Button, Container } from "react-bootstrap";
 import Link from "next/link";
 import { logoutInitiate } from "../redux/action";
-// import { useAuth } from "../context/Auth";
 
 export const Nav = () => {
   const { logout } = logoutInitiate();
