@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Container, Alert } from "react-bootstrap";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useAuth } from "../context/Auth";
 import { signInWithGoogle } from "../services/firebase";
 import { useEffect } from "react";
 import { loginInitiate } from "../redux/action";
@@ -15,21 +14,19 @@ export default function Login() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // const { login } = useAuth();
+  const [message, setMessage] = useState("");
 
   const router = useRouter();
 
-  const { currentUser } = useSelector((state) => state.user)
-
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if(currentUser) {
-      router.push("/dashboard")
+    if (currentUser) {
+      router.push("/dashboard");
     }
-  }, [currentUser, router])
+  }, [currentUser, router]);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   function handleSetUser(event) {
     const { name, value } = event.target;
@@ -44,9 +41,13 @@ export default function Login() {
 
     try {
       setError("");
+      setMessage("");
       setLoading(true);
       await dispatch(loginInitiate(user.email, user.password));
-      navigate("/dashboard", { replace: true });
+      setMessage("Processing...");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 3000);
     } catch {
       setError("Failed to login or wrong password");
     }
@@ -60,7 +61,7 @@ export default function Login() {
         className="border border-dark mt-5"
         style={{
           background: "#10316B",
-          borderRadius: "30px"
+          borderRadius: "30px",
         }}
       >
         <div
@@ -80,16 +81,16 @@ export default function Login() {
                   style={{
                     fontFamily: "arial",
                     fontSize: "50px",
-                    
                   }}
-                ><b>
-                  Login
-                  </b>
+                >
+                  <b>Login</b>
                 </h3>
               </div>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 {error && <Alert variant="danger"> {error} </Alert>}
-                <Form.Label><b>Email Address</b></Form.Label>
+                <Form.Label>
+                  <b>Email Address</b>
+                </Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -100,7 +101,9 @@ export default function Login() {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label><b>Password</b></Form.Label>
+                <Form.Label>
+                  <b>Password</b>
+                </Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Password"
@@ -118,7 +121,7 @@ export default function Login() {
               </Form.Group>
               <div className="text-center pt-2 d-grid">
                 <Button variant="primary" type="submit" disabled={loading}>
-                  Submit
+                  {message === "" ? "Submit" : message}
                 </Button>
               </div>
               <div className="text-center pt-3">
